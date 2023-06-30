@@ -1,14 +1,21 @@
 import React from "react";
 import { List } from "./List";
 import { Form } from "./Form";
-import { LANGUAGES } from "./const/languages";
+import { getLanguages } from "./const/languages";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tab: "list",
-      langs: LANGUAGES,
+      langs: [],
     };
+  }
+  componentDidMount() {
+    this.fetchLanguages();
+  }
+  async fetchLanguages() {
+    const langs = await getLanguages();
+    this.setState({ langs });
   }
   addLang(lang) {
     this.setState({
